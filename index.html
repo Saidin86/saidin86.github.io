@@ -1,16 +1,22 @@
 <?php
 /* 
+
 Free PHP File Directory Listing Script - Version 1.10
+
 The MIT License (MIT)
+
 Copyright (c) 2015 Hal Gatewood
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
+
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,7 +24,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
 *** OPTIONS ***/
+
 	// TITLE OF PAGE
 	$title = "List of Files";
 	
@@ -46,6 +55,7 @@ SOFTWARE.
 	
 	// IGNORE EMPTY FOLDERS
 	$ignore_empty_folders = true;
+
 	
 // SET TITLE BASED ON FOLDER NAME, IF NOT SET ABOVE
 if( !$title ) { $title = clean_title(basename(dirname(__FILE__))); }
@@ -114,15 +124,18 @@ if( !$title ) { $title = clean_title(basename(dirname(__FILE__))); }
 <h1><?php echo $title ?></h1>
 <div class="wrap">
 <?php
+
 // FUNCTIONS TO MAKE THE MAGIC HAPPEN, BEST TO LEAVE THESE ALONE
 function clean_title($title)
 {
 	return ucwords( str_replace( array("-", "_"), " ", $title) );
 }
+
 function ext($filename) 
 {
 	return substr( strrchr( $filename,'.' ),1 );
 }
+
 function display_size($bytes, $precision = 2) 
 {
 	$units = array('B', 'KB', 'MB', 'GB', 'TB');
@@ -132,11 +145,13 @@ function display_size($bytes, $precision = 2)
     $bytes /= (1 << (10 * $pow)); 
 	return round($bytes, $precision) . '<span class="fs-0-8 bold">' . $units[$pow] . "</span>";
 }
+
 function count_dir_files( $dir)
 {
 	$fi = new FilesystemIterator(__DIR__ . "/" . $dir, FilesystemIterator::SKIP_DOTS);
 	return iterator_count($fi);
 }
+
 function get_directory_size($path)
 {
     $bytestotal = 0;
@@ -151,6 +166,8 @@ function get_directory_size($path)
     
     return display_size($bytestotal);
 }
+
+
 // SHOW THE MEDIA BLOCK
 function display_block( $file )
 {
@@ -181,11 +198,14 @@ function display_block( $file )
 		$rtn .= "		<div class=\"data upper size fs-0-7\"><span class=\"bold\">Size:</span> " . display_size(filesize($file)) . "</div>";
 		$rtn .= "		<div class=\"data upper modified fs-0-7\"><span class=\"bold\">Last modified:</span> " .  date("D. F jS, Y - h:ia", filemtime($file)) . "</div>";	
 	}
+
 	$rtn .= "	</div>";
 	$rtn .= "	</a>";
 	$rtn .= "</div>";
 	return $rtn;
 }
+
+
 // RECURSIVE FUNCTION TO BUILD THE BLOCKS
 function build_blocks( $items, $folder )
 {
@@ -206,6 +226,7 @@ function build_blocks( $items, $folder )
 		{
 			$item = "$folder/$item";
 		}
+
 		$file_ext = ext($item);
 		
 		// IGNORE EXT
@@ -278,6 +299,7 @@ function build_blocks( $items, $folder )
 		echo display_block( $file );
 	}
 }
+
 // GET THE BLOCKS STARTED, FALSE TO INDICATE MAIN FOLDER
 $items = scandir( dirname(__FILE__) );
 build_blocks( $items, false );
