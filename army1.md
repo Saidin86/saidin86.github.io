@@ -1,3 +1,7 @@
+layout: page
+title: "Army 1"
+permalink: https://saidin86.github.io/Army_1
+
 <html>
     <head>
         <meta name="viewport" content="width=670"> 
